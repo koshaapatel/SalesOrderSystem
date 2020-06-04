@@ -1,4 +1,4 @@
-(defn func // gem
+(defn func ; gem
   []
       (println "wowo")
       (let [readinput (read-line)]
