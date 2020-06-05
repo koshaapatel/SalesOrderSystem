@@ -13,15 +13,15 @@
         (do custvector)
         (do 
             (println (first data))
-            (def templist (str/split (first data) #"\|"))
-            (def custvector (conj custvector {(parse-int (get templist 0)) [(get templist 1) (get templist 2) (get templist 3)]} ))
-            ; (def custvector (conj custvector (assoc custvector (parse-int (get templist 0)) [(get templist 1) (get templist 2) (get templist 3)])))          
+            (def custlist (str/split (first data) #"\|"))
+            (def custvector (conj custvector {(parse-int (get custlist 0)) [(get custlist 1) (get custlist 2) (get custlist 3)]} ))
+            ; (def custvector (conj custvector (assoc custvector (parse-int (get custlist 0)) [(get custlist 1) (get custlist 2) (get custlist 3)])))          
             (recur (rest data))
         )
     ))
 
     ([]
-    (do custvector))    
+    (do (into (sorted-map) custvector)))    
 ) 
 
 ; (defn getmap
@@ -43,6 +43,6 @@
 (println (seperate))
 
 
-; (def custvector (conj custvector (assoc custvector :(parse-int (get templist 0)) [(get templist 1) (get templist 2) (get templist 3)])))
+; (def custvector (conj custvector (assoc custvector :(parse-int (get custlist 0)) [(get custlist 1) (get custlist 2) (get custlist 3)])))
 
-; (println (get templist 0)) (sep (str/split (str/join (first data)) #"|"))
+; (println (get custlist 0)) (sep (str/split (str/join (first data)) #"|"))
