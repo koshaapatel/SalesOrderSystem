@@ -8,7 +8,7 @@
    (Integer. (re-find  #"\d+" s )))
 
 (defn seperate
-    [data]
+    ([data]
     (if (empty? data)
         (do custvector)
         (do 
@@ -18,10 +18,16 @@
             ; (def custvector (conj custvector (assoc custvector (parse-int (get templist 0)) [(get templist 1) (get templist 2) (get templist 3)])))          
             (recur (rest data))
         )
-    )    
+    ))
+
+    ([]
+    (do custvector))    
 ) 
 
-; (println "result:" (seperate (str/split (slurp "cust.txt") #"\n")))
+; (defn getmap
+;     []
+;     (seperate (str/split (slurp "cust.txt") #"\n"))
+; )
 
 (println (get custvector 2))
 
@@ -31,6 +37,10 @@
 
 (println "SORTED MAP")
 (println (into (sorted-map) (seperate (str/split (slurp "cust.txt") #"\n"))))
+
+;(println "result:" (seperate (str/split (slurp "cust.txt") #"\n")))
+(println "MAPp")
+(println (seperate))
 
 
 ; (def custvector (conj custvector (assoc custvector :(parse-int (get templist 0)) [(get templist 1) (get templist 2) (get templist 3)])))
