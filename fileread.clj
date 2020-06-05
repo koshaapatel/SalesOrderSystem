@@ -7,7 +7,7 @@
 (defn parse-int [s]
    (Integer. (re-find  #"\d+" s )))
 
-(defn seperate
+(defn splitcustdata
     ([data]
     (if (empty? data)
         (do custvector)
@@ -26,7 +26,7 @@
 
 ; (defn getmap
 ;     []
-;     (seperate (str/split (slurp "cust.txt") #"\n"))
+;     (splitcustdata (str/split (slurp "cust.txt") #"\n"))
 ; )
 
 (println (get custvector 2))
@@ -36,11 +36,11 @@
 
 
 (println "SORTED MAP")
-(println (into (sorted-map) (seperate (str/split (slurp "cust.txt") #"\n"))))
+(println (into (sorted-map) (splitcustdata (str/split (slurp "cust.txt") #"\n"))))
 
-;(println "result:" (seperate (str/split (slurp "cust.txt") #"\n")))
+;(println "result:" (splitcustdata (str/split (slurp "cust.txt") #"\n")))
 (println "MAPp")
-(println (seperate))
+(println (splitcustdata))
 
 
 ; (def custvector (conj custvector (assoc custvector :(parse-int (get custlist 0)) [(get custlist 1) (get custlist 2) (get custlist 3)])))
