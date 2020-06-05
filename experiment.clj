@@ -10,6 +10,13 @@
 
 (println test-map)
 
+(println (into (sorted-map) {:a 2 :b 1 :d "ok" :c "okok" }))
+
+(def temp [])
+(println (conj temp 1 2 3))
+
+(println (conj [1 2 3] 4))
+
 ; (println (let [grade 85]
 ;          (cond
 ;            (>= grade 90) "A"
