@@ -25,7 +25,9 @@
         (do ; (println (first data))
             (def custlist (str/split (first data) #"\|"))
             (def custid (parse-int (get custlist 0))) ; (if (= custid 1)  (println "@@@@@@"))
-            (def custvector (conj custvector {custid [(get custlist 1) (get custlist 2) (get custlist 3)]} ))
+            ; (def custname (get custlist 1))
+            (def custvector (conj custvector {custid [ (get custlist 1) (get custlist 2) (get custlist 3) ] } ))
+            ; (def custvector (conj custvector {custid (set [ (get custlist 1) (get custlist 2) (get custlist 3) ]) } ))
             ; (def custvector (conj custvector (assoc custvector (parse-int (get custlist 0)) [(get custlist 1) (get custlist 2) (get custlist 3)]))) ; alternate of above line, we wont use though       
             (recur (rest data))
         )
@@ -61,7 +63,7 @@
         (do ; (println (first data))
             (def saleslist (str/split (first data) #"\|"))
             (def salesid (parse-int (get saleslist 0)) )
-            (def itemcount (parse-float (get saleslist 3)) )
+            (def itemcount (parse-int (get saleslist 3)) )
             (def tempcustname (get custvector (parse-int (get saleslist 1)))) ; (println (get tempcustname 0))
             (def tempitemname (get prodvector (parse-int (get saleslist 2)))) ; (println (get tempitemname 0))
             (def salesvector (conj salesvector {salesid [(get tempcustname 0) (get tempitemname 0) itemcount ]} ))
@@ -116,3 +118,50 @@
 (println (splitsalescalcdata (str/split (slurp "sales.txt") #"\n")) )
 (println "SALES CALC MAP")
 (println (splitsalescalcdata))
+
+(defn listtovector 
+    [data]
+   (vec data)
+)
+
+(def cname "Sue Jones")
+
+; (def saleskeys (vec (keys (splitsalesdata) )))
+(def saleskeys  (listtovector (keys (splitsalesdata))   ) )
+(println saleskeys)
+
+; (def filtered (filter (fn [x] (< x 2)) [-1 4 0 7 2]))
+
+
+(def salesidbyname 
+    (filter (fn [x] 
+    
+    (def id (get salesvector x)) ; salesvector's list: [sue jones shoes 3]
+    (def xname (get id 0) )
+    (if (= xname cname)
+        id
+    )
+    ;(< x 2)
+    ) 
+    saleskeys) ) 
+
+(println (listtovector salesidbyname))
+
+
+
+
+
+; (println (keys (splitcustdata)))
+; (println (map key (splitcustdata)))
+
+
+; (myloop (keys (splitcustdata)))
+
+; (defn myloop
+;     (keys)
+;     (println keys)
+; )
+
+; (def mm (splitcustdata))
+; (def xx (get custvector 2))
+; (println (get xx 0))
