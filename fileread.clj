@@ -128,10 +128,9 @@
 
 ; (def saleskeys (vec (keys (splitsalesdata) )))
 (def saleskeys  (listtovector (keys (splitsalesdata))   ) )
-(println saleskeys)
+; println saleskeys)
 
 ; (def filtered (filter (fn [x] (< x 2)) [-1 4 0 7 2]))
-
 
 (def salesidbyname 
     (filter (fn [x] 
@@ -139,17 +138,52 @@
     (def id (get salesvector x)) ; salesvector's list: [sue jones shoes 3]
     (def xname (get id 0) )
     (if (= xname cname)
-        id
-    )
-    ;(< x 2)
-    ) 
+        x
+    )) 
     saleskeys) ) 
 
-(println (listtovector salesidbyname))
+(def filteredsalesid (listtovector salesidbyname))
 
+(println "filtered salesid"filteredsalesid)
 
+(defn prodidbysalesid 
+    [data]
+    (map (fn [arg] 
+    
+    (def salesdata (get salescalcvector arg))
+    (def prodid (get salesdata 1))
+    (def cost (get pro))
+    prodid
+ 
+    )  
+    data)
+) 
 
+; (def filteredprodid (prodidbysalesid filteredsalesid))
+(def filteredprodid (listtovector (prodidbysalesid filteredsalesid) )  )
 
+(println "filtered prodid"filteredprodid)
+
+(defn unitcostbyprodid
+    [data]
+    (map (fn [arg] 
+    
+    (def proddata (get prodvector arg) )
+    (def cost (get proddata 1)   )
+    cost
+ 
+    )  
+    data)
+
+)
+
+(def filteredunitcost (listtovector (unitcostbyprodid filteredprodid) )  )
+
+(println "filtered unitcost"filteredunitcost)
+
+; (def pid prodidbysalesid)
+
+; (println pid)
 
 ; (println (keys (splitcustdata)))
 ; (println (map key (splitcustdata)))
