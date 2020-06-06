@@ -125,7 +125,7 @@
         total
         )  
         data)
-      ) 
+    ) 
 
     (def filteredprodid (reduce + (listtovector (prodidbysalesid filteredsalesid) ) )  )
 
