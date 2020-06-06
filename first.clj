@@ -152,16 +152,18 @@
     (println "filteredprodid"filteredprodid)
 
     (def salescalckeys  (listtovector (keys (splitsalescalcdata))   ) )
-    (println "salescalckeys"salescalckeys)
+    ;(println "salescalckeys"salescalckeys)
 
     (def getsalesidbyprodid 
         (filter (fn [x] 
             (def salescalcdata (get salescalcvector x)) ; salescalcvector's list: [1 1 3] [2 2 3] [2 1 1] [3 3 4]
+            ; (println "SALESCALCDATA"salescalcdata)
             (def prodid (get salescalcdata 1) )
-  
+            (println "SALESCALCPRODID"prodid)
+            
             (if (= prodid (get filteredprodid 0))
-              prodid
-              
+              (do prodid)
+              (do )
             )) salescalckeys  
             ) )  
 
@@ -171,11 +173,11 @@
 
     (defn itemcountbyprodid 
         [salesid]
-        (println "salesid"salesid)
+        ;(println "salesid"salesid)
         (map (fn [arg] 
-        (println "arg"arg)
+        ;(println "arg"arg)
         (def salesdata (get salescalcvector arg))
-        (println "salesdata"salesdata)
+        ;(println "salesdata"salesdata)
         (def itemcount (get salesdata 2))
         (println "itemcount"itemcount)
   
@@ -232,28 +234,3 @@
 
 (loaddatabase)
 (takeinput)
-
-
-
-
-
-
-    ; (defn getsalesidbyprodid 
-    ;     [data]
-    ;     (filter (fn [x] 
-    
-    ;         (def salescalcdata (get salescalcvector x)) ; salescalcvector's list: [1 1 3] [2 2 3] [2 1 1] [3 3 4]
-    ;         (println "salescalcdata"salescalcdata)
-    ;         (def prodid (get salescalcdata 1) )
-    ;         (println "prodid"prodid)
-    ;         (if (= prodid data)
-    ;           x
-    ;         )) 
-    ;         salescalckeys) )
-
-
-
-    ; (def salesids (getsalesidbyprodid filteredprodid))
-
-    ; (def salesidbyprodid (listtovector salesids))
-    ; (println "salesidbyprodid"salesidbyprodid)
