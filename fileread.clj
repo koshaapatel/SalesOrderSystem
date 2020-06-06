@@ -124,7 +124,8 @@
    (vec data)
 )
 
-(def cname "Sue Jones")
+(println "Enter name:")
+(def cname (read-line))
 
 ; (def saleskeys (vec (keys (splitsalesdata) )))
 (def saleskeys  (listtovector (keys (splitsalesdata))   ) )
@@ -144,7 +145,7 @@
 
 (def filteredsalesid (listtovector salesidbyname))
 
-(println "filtered salesid"filteredsalesid)
+; (println "filtered salesid"filteredsalesid)
 
 (defn prodidbysalesid 
     [data]
@@ -152,34 +153,39 @@
     
     (def salesdata (get salescalcvector arg))
     (def prodid (get salesdata 1))
-    (def cost (get pro))
-    prodid
- 
+    
+    (def itemcount (get salesdata 2))
+    
+    (def co (get prodvector prodid))
+    (def cost (get co 1))
+    (def total (* itemcount cost))
+    total
     )  
     data)
 ) 
 
-; (def filteredprodid (prodidbysalesid filteredsalesid))
-(def filteredprodid (listtovector (prodidbysalesid filteredsalesid) )  )
+(def filteredprodid (reduce + (listtovector (prodidbysalesid filteredsalesid) ) )  )
 
-(println "filtered prodid"filteredprodid)
+(println "total: "filteredprodid)
 
-(defn unitcostbyprodid
-    [data]
-    (map (fn [arg] 
+
+
+; (defn unitcostbyprodid
+;     [data]
+;     (map (fn [arg] 
     
-    (def proddata (get prodvector arg) )
-    (def cost (get proddata 1)   )
-    cost
+;     (def proddata (get prodvector arg) )
+;     (def cost (get proddata 1)   )
+;     cost
  
-    )  
-    data)
+;     )  
+;     data)
 
-)
+; )
 
-(def filteredunitcost (listtovector (unitcostbyprodid filteredprodid) )  )
+; (def filteredunitcost (listtovector (unitcostbyprodid filteredprodid) )  )
 
-(println "filtered unitcost"filteredunitcost)
+; (println "filtered unitcost"filteredunitcost)
 
 ; (def pid prodidbysalesid)
 
