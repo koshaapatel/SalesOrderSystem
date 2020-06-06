@@ -21,7 +21,7 @@
 
     ([data]
     (if (empty? data)
-        (do (into (sorted-map) custvector) )
+        (do ) ;(do (into (sorted-map) custvector) )
         (do ; (println (first data))
             (def custlist (str/split (first data) #"\|"))
             (def custid (parse-int (get custlist 0))) ; (if (= custid 1)  (println "@@@@@@"))
@@ -41,7 +41,7 @@
 
     ([data]
     (if (empty? data)
-        (do (into (sorted-map) prodvector) )
+        (do ) ; (do (into (sorted-map) prodvector) )
         (do ; (println (first data))
             (def prodlist (str/split (first data) #"\|"))
             (def prodid (parse-int (get prodlist 0)) )
@@ -59,7 +59,7 @@
 
     ([data]
     (if (empty? data)
-        (do (into (sorted-map) salesvector) )
+        (do ) ; (do (into (sorted-map) salesvector) )
         (do ; (println (first data))
             (def saleslist (str/split (first data) #"\|"))
             (def salesid (parse-int (get saleslist 0)) )
@@ -79,7 +79,7 @@
 
     ([data]
     (if (empty? data)
-        (do (into (sorted-map) salescalcvector) )
+        (do ) ; (do (into (sorted-map) salescalcvector) )
         (do ; (println (first data))
             (def salescalclist (str/split (first data) #"\|"))
             (def salesid (parse-int (get salescalclist 0)) )
@@ -93,9 +93,9 @@
 
 )
 
+;(println "SORTED CUST MAP")
+(splitcustdata (str/split (slurp "cust.txt") #"\n")) 
 (println "SORTED CUST MAP")
-(println (splitcustdata (str/split (slurp "cust.txt") #"\n")) )
-(println "CUST MAP")
 (println (splitcustdata))
 
 ; additional operations on custvector
@@ -104,19 +104,19 @@
 ; (println (get xx 0))
 ; (println (get custlist 0)) (sep (str/split (str/join (first data)) #"|")) ; this might be invalid
 
+;(println "SORTED PROD MAP")
+(splitproddata (str/split (slurp "prod.txt") #"\n")) 
 (println "SORTED PROD MAP")
-(println (splitproddata (str/split (slurp "prod.txt") #"\n")) )
-(println "PROD MAP")
 (println (splitproddata))
 
+; (println "SORTED SALES MAP")
+(splitsalesdata (str/split (slurp "sales.txt") #"\n")) 
 (println "SORTED SALES MAP")
-(println (splitsalesdata (str/split (slurp "sales.txt") #"\n")) )
-(println "SALES MAP")
 (println (splitsalesdata))
 
+; println "SORTED SALES CALC MAP")
+(splitsalescalcdata (str/split (slurp "sales.txt") #"\n")) 
 (println "SORTED SALES CALC MAP")
-(println (splitsalescalcdata (str/split (slurp "sales.txt") #"\n")) )
-(println "SALES CALC MAP")
 (println (splitsalescalcdata))
 
 (defn listtovector 
