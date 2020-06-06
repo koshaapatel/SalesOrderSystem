@@ -31,3 +31,14 @@
 ;  (let [refined (str/split (slurp "cust.txt") #" ")]
 ;      (println refined)
 ;  )
+
+
+(defn parse-float [s]
+    (Float/parseFloat s)
+)
+
+(println (parse-float "14.96"))
+
+
+(def name "kosha patel")
+(println "your name? "name)
