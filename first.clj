@@ -94,6 +94,45 @@
 
 )
 
+(defn logicfour
+    [name]
+    (def saleskeys  (listtovector (keys (splitsalesdata))   ) )
+
+    (def salesidbyname 
+      (filter (fn [x] 
+    
+      (def id (get salesvector x)) 
+      (def xname (get id 0) )
+      (if (= xname name)
+        x
+      )) 
+      saleskeys) ) 
+
+    (def filteredsalesid (listtovector salesidbyname))
+
+    (defn prodidbysalesid 
+        [data]
+        (map (fn [arg] 
+    
+        (def salesdata (get salescalcvector arg))
+        (def prodid (get salesdata 1))
+    
+        (def itemcount (get salesdata 2))
+    
+        (def co (get prodvector prodid))
+        (def cost (get co 1))
+        (def total (* itemcount cost))
+        total
+        )  
+        data)
+      ) 
+
+    (def filteredprodid (reduce + (listtovector (prodidbysalesid filteredsalesid) ) )  )
+
+    (println name": "filteredprodid)
+
+)
+
 (defn loaddatabase
   []
   (splitcustdata (str/split (slurp "cust.txt") #"\n")) 
@@ -123,7 +162,7 @@
                  (= readinput 1) (do (println "CUSTOMER TABLE") (println (splitcustdata)) (recur) )
                  (= readinput 2) (do (println "PRODUCT TABLE") (println (splitproddata)) (recur) )
                  (= readinput 3) (do (println "SALES TABLE") (println (splitsalesdata)) (recur) )
-                 (= readinput 4) (do (println "i4") (recur) )
+                 (= readinput 4) (do (println "Enter name:") (def cname (read-line)) (logicfour cname)  (recur) )
                  (= readinput 5) (do (println "i5") (recur) )
                  (= readinput 6) (do (println "Good Bye") )
                  (>= readinput 7) (do (println "Invalid option entered. Enter valid option.") (recur) )
