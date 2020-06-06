@@ -133,6 +133,65 @@
 
 )
 
+(defn logicfive 
+    [item]
+    (println "item"item)
+    (def productkeys  (listtovector (keys (splitproddata))   ) )
+
+    (def prodidbyitem 
+      (filter (fn [x] 
+    
+      (def proddata (get prodvector x)) 
+      (def xitem (get proddata 0) )
+      (if (= xitem item)
+        x
+      )) 
+      productkeys) )
+
+    (def filteredprodid (listtovector prodidbyitem)) ; for shoes: 1
+    (println "filteredprodid"filteredprodid)
+
+    (def salescalckeys  (listtovector (keys (splitsalescalcdata))   ) )
+    (println "salescalckeys"salescalckeys)
+
+    (def getsalesidbyprodid 
+        (filter (fn [x] 
+            (def salescalcdata (get salescalcvector x)) ; salescalcvector's list: [1 1 3] [2 2 3] [2 1 1] [3 3 4]
+            (def prodid (get salescalcdata 1) )
+  
+            (if (= prodid (get filteredprodid 0))
+              prodid
+              
+            )) salescalckeys  
+            ) )  
+
+    (def filteredsalesid (listtovector getsalesidbyprodid ))
+    (println "filteredsalesid"filteredsalesid)
+
+
+    (defn itemcountbyprodid 
+        [salesid]
+        (println "salesid"salesid)
+        (map (fn [arg] 
+        (println "arg"arg)
+        (def salesdata (get salescalcvector arg))
+        (println "salesdata"salesdata)
+        (def itemcount (get salesdata 2))
+        (println "itemcount"itemcount)
+  
+        itemcount
+
+        )salesid
+    
+        )
+    )
+
+    (def totalitems (reduce + (listtovector (itemcountbyprodid filteredsalesid) ) )  ) ; filteredsalesid
+
+    (println "totalitems" totalitems)
+
+)
+
 (defn loaddatabase
   []
   (splitcustdata (str/split (slurp "cust.txt") #"\n")) 
@@ -162,8 +221,8 @@
                  (= readinput 1) (do (println "CUSTOMER TABLE") (println (splitcustdata)) (recur) )
                  (= readinput 2) (do (println "PRODUCT TABLE") (println (splitproddata)) (recur) )
                  (= readinput 3) (do (println "SALES TABLE") (println (splitsalesdata)) (recur) )
-                 (= readinput 4) (do (println "Enter name:") (def cname (read-line)) (logicfour cname)  (recur) )
-                 (= readinput 5) (do (println "i5") (recur) )
+                 (= readinput 4) (do (println "Enter customer name:") (def cname (read-line)) (logicfour cname)  (recur) )
+                 (= readinput 5) (do (println "Enter product name:") (def prodname (read-line)) (logicfive prodname) (recur) )
                  (= readinput 6) (do (println "Good Bye") )
                  (>= readinput 7) (do (println "Invalid option entered. Enter valid option.") (recur) )
                  (<= readinput 0) (do (println "Invalid option entered. Enter valid option.") (recur) )
@@ -173,3 +232,28 @@
 
 (loaddatabase)
 (takeinput)
+
+
+
+
+
+
+    ; (defn getsalesidbyprodid 
+    ;     [data]
+    ;     (filter (fn [x] 
+    
+    ;         (def salescalcdata (get salescalcvector x)) ; salescalcvector's list: [1 1 3] [2 2 3] [2 1 1] [3 3 4]
+    ;         (println "salescalcdata"salescalcdata)
+    ;         (def prodid (get salescalcdata 1) )
+    ;         (println "prodid"prodid)
+    ;         (if (= prodid data)
+    ;           x
+    ;         )) 
+    ;         salescalckeys) )
+
+
+
+    ; (def salesids (getsalesidbyprodid filteredprodid))
+
+    ; (def salesidbyprodid (listtovector salesids))
+    ; (println "salesidbyprodid"salesidbyprodid)
