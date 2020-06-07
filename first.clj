@@ -172,7 +172,6 @@
 
 (defn logicfive 
     [item]
-    (println "item"item)
     (def productkeys  (listtovector (keys (splitproddata))   ) )
 
     (def prodidbyitem 
@@ -186,8 +185,6 @@
       productkeys) )
 
     (def filteredprodid (listtovector prodidbyitem)) ; for shoes: 1
-    (println "filteredprodid"filteredprodid)
-
     (def salescalckeys  (listtovector (keys (splitsalescalcdata))   ) )
     ;(println "salescalckeys"salescalckeys)
 
@@ -196,7 +193,6 @@
             (def salescalcdata (get salescalcvector x)) ; salescalcvector's list: [1 1 3] [2 2 3] [2 1 1] [3 3 4]
             ; (println "SALESCALCDATA"salescalcdata)
             (def prodid (get salescalcdata 1) )
-            (println "SALESCALCPRODID"prodid)
             
             (if (= prodid (get filteredprodid 0))
               (do prodid)
@@ -205,8 +201,6 @@
             ) )  
 
     (def filteredsalesid (listtovector getsalesidbyprodid ))
-    (println "filteredsalesid"filteredsalesid)
-
 
     (defn itemcountbyprodid 
         [salesid]
@@ -216,8 +210,7 @@
         (def salesdata (get salescalcvector arg))
         ;(println "salesdata"salesdata)
         (def itemcount (get salesdata 2))
-        (println "itemcount"itemcount)
-  
+
         itemcount
 
         )salesid
@@ -227,7 +220,7 @@
 
     (def totalitems (reduce + (listtovector (itemcountbyprodid filteredsalesid) ) )  ) ; filteredsalesid
 
-    (println "totalitems" totalitems)
+    (println item": " totalitems)
 
 )
 
