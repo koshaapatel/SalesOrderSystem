@@ -241,18 +241,18 @@
 (defn takeinput 
   []
       (printmenu)
-      (let [readinput (parse-int (read-line))]
-            (cond 
-                 (= readinput 1) (do (splitcustdata) (println "********************* CUSTOMER TABLE *********************")  (listtovector (remove nil?(displaycustdata) ))    (recur) ) 
-                 (= readinput 2) (do (splitproddata) (println "*********** PRODUCT TABLE ***********") (listtovector (remove nil?(displayproddata) )) (recur) )
-                 (= readinput 3) (do (splitsalesdata) (println "***************** SALES TABLE ****************") (listtovector (remove nil?(displaysalesdata) )) (recur) )
-                 (= readinput 4) (do (println "Enter customer name:") (def cname (read-line)) (logicfour cname)  (recur) )
-                 (= readinput 5) (do (println "Enter product name:") (def prodname (read-line)) (logicfive prodname) (recur) )
-                 (= readinput 6) (do (println "Good Bye") )
-                 (>= readinput 7) (do (println "Invalid option entered. Enter valid option.") (recur) )
-                 (<= readinput 0) (do (println "Invalid option entered. Enter valid option.") (recur) )
+         (let [readinput (read-line)]
+            (cond  
+                 (= (parse-int readinput) 1) (do (splitcustdata) (println "********************* CUSTOMER TABLE *********************")  (listtovector (remove nil?(displaycustdata) ))    (recur) ) 
+                 (= (parse-int readinput) 2) (do (splitproddata) (println "*********** PRODUCT TABLE ***********") (listtovector (remove nil?(displayproddata) )) (recur) )
+                 (= (parse-int readinput) 3) (do (splitsalesdata) (println "***************** SALES TABLE ****************") (listtovector (remove nil?(displaysalesdata) )) (recur) )
+                 (= (parse-int readinput) 4) (do (println "Enter customer name:") (def cname (read-line)) (logicfour cname)  (recur) )
+                 (= (parse-int readinput) 5) (do (println "Enter product name:") (def prodname (read-line)) (logicfive prodname) (recur) )
+                 (= (parse-int readinput) 6) (do (println "Good Bye") )
+                 (>= (parse-int readinput) 7) (do (println "Invalid option entered. Enter valid option.") (recur) )
+                 (<= (parse-int readinput) 0) (do (println "Invalid option entered. Enter valid option.") (recur) )  
             )
-      )
+          )      
 )
 
 (loaddatabase)
