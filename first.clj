@@ -39,17 +39,15 @@
 (defn displaycustdata
     []
     (def keyss (listtovector (keys (splitcustdata) )) )
-   ; (println "keys"keyss)
+    (println "Custid    Name    Address     PhoneNumber") 
+    (map (fn [arg] 
+        (def salesdata (get custvector arg))
+        (println arg"   " (get salesdata 0)"    "(get salesdata 1)"     "(get salesdata 2)   )
+    )  
+    keyss) 
 
-        (map (fn [arg] 
-            
-    (println "Custid    Name    Address     PhoneNumber")
-            (def salesdata (get custvector arg))
-            (println arg"   " (get salesdata 0)"    "(get salesdata 1)"     "(get salesdata 2)   )
-        )  
-        keyss) 
+) 
 
-)
 
 (defn splitproddata
     ([]
@@ -112,6 +110,7 @@
 (defn logicfour
     [name]
     (def saleskeys  (listtovector (keys (splitsalesdata))   ) )
+   ; (println "SALESKEYS"saleskeys)
 
     (def salesidbyname 
       (filter (fn [x] 
@@ -150,6 +149,7 @@
 
 (defn logicfive 
     [item]
+    (println "item"item)
     (def productkeys  (listtovector (keys (splitproddata))   ) )
 
     (def prodidbyitem 
@@ -163,12 +163,15 @@
       productkeys) )
 
     (def filteredprodid (listtovector prodidbyitem)) ; for shoes: 1
+    (println "filteredprodid"filteredprodid)
 
     (def salescalckeys  (listtovector (keys (splitsalescalcdata))   ) )
+    ;(println "salescalckeys"salescalckeys)
 
     (def getsalesidbyprodid 
         (filter (fn [x] 
             (def salescalcdata (get salescalcvector x)) ; salescalcvector's list: [1 1 3] [2 2 3] [2 1 1] [3 3 4]
+            ; (println "SALESCALCDATA"salescalcdata)
             (def prodid (get salescalcdata 1) )
             (println "SALESCALCPRODID"prodid)
             
@@ -179,15 +182,19 @@
             ) )  
 
     (def filteredsalesid (listtovector getsalesidbyprodid ))
+    (println "filteredsalesid"filteredsalesid)
 
 
     (defn itemcountbyprodid 
         [salesid]
+        ;(println "salesid"salesid)
         (map (fn [arg] 
-        (println "arg"arg)
+        ;(println "arg"arg)
         (def salesdata (get salescalcvector arg))
         ;(println "salesdata"salesdata)
         (def itemcount (get salesdata 2))
+        (println "itemcount"itemcount)
+  
         itemcount
 
         )salesid
@@ -197,7 +204,7 @@
 
     (def totalitems (reduce + (listtovector (itemcountbyprodid filteredsalesid) ) )  ) ; filteredsalesid
 
-    (println item": " totalitems)
+    (println "totalitems" totalitems)
 
 )
 
@@ -227,7 +234,9 @@
       (printmenu)
       (let [readinput (parse-int (read-line))]
             (cond 
-                 (= readinput 1) (do (splitcustdata) (println "CUSTOMER TABLE")  (println (remove nil?(displaycustdata) ) )   (recur) )
+                 ; (= readinput 1) (do (splitcustdata) (println "CUSTOMER TABLE")   (def result (listtovector (remove nil?(displaycustdata) ))) (println result)    (recur) )
+                 ; (= readinput 1) (do (splitcustdata) (println "CUSTOMER TABLE")   (def result (listtovector (remove nil?(displaycustdata) )))     (recur) )
+                 (= readinput 1) (do (splitcustdata) (println "CUSTOMER TABLE")  (listtovector (remove nil?(displaycustdata) ))    (recur) )
                  (= readinput 2) (do (println "PRODUCT TABLE") (println (splitproddata)) (recur) )
                  (= readinput 3) (do (println "SALES TABLE") (println (splitsalesdata)) (recur) )
                  (= readinput 4) (do (println "Enter customer name:") (def cname (read-line)) (logicfour cname)  (recur) )
