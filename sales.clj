@@ -135,14 +135,14 @@
     (def saleskeys  (listtovector (keys (splitsalesdata))   ) )
 
     (def salesidbyname 
-      (filter (fn [x] 
+        (filter (fn [x] 
     
-      (def id (get salesvector x)) 
-      (def xname (get id 0) )
-      (if (= xname name)
-        x
-      )) 
-      saleskeys) ) 
+        (def id (get salesvector x)) 
+        (def xname (get id 0) )
+        (if (= xname name)
+            x
+        )) 
+    saleskeys) ) 
 
     (def filteredsalesid (listtovector salesidbyname))
 
@@ -164,7 +164,6 @@
     ) 
 
     (def filteredprodid (reduce + (listtovector (prodidbysalesid filteredsalesid) ) )  )
-
     (println name": $"filteredprodid)
 
 )
@@ -203,12 +202,9 @@
     (defn itemcountbyprodid 
         [salesid]
         
-        (map (fn [arg] 
-        
-        (def salesdata (get salescalcvector arg))
-       
+        (map (fn [arg]         
+        (def salesdata (get salescalcvector arg))     
         (def itemcount (get salesdata 2))
-
         itemcount
 
         )salesid
@@ -217,7 +213,6 @@
     )
 
     (def totalitems (reduce + (listtovector (itemcountbyprodid filteredsalesid) ) )  ) 
-
     (println item": " totalitems)
 
 )
