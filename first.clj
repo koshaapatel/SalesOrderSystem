@@ -250,8 +250,7 @@
       (printmenu)
       (let [readinput (parse-int (read-line))]
             (cond 
-                 ; (= readinput 1) (do (splitcustdata) (println "CUSTOMER TABLE")   (def result (listtovector (remove nil?(displaycustdata) )))     (recur) )
-                 (= readinput 1) (do (splitcustdata) (println "CUSTOMER TABLE")  (listtovector (remove nil?(displaycustdata) ))    (recur) ) ; this and above line both works
+                 (= readinput 1) (do (splitcustdata) (println "CUSTOMER TABLE")  (listtovector (remove nil?(displaycustdata) ))    (recur) ) 
                  (= readinput 2) (do (splitproddata) (println "PRODUCT TABLE") (listtovector (remove nil?(displayproddata) )) (recur) )
                  (= readinput 3) (do (splitsalesdata) (println "SALES TABLE") (listtovector (remove nil?(displaysalesdata) )) (recur) )
                  (= readinput 4) (do (println "Enter customer name:") (def cname (read-line)) (logicfour cname)  (recur) )
