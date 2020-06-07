@@ -25,8 +25,8 @@
 
     ([data]
     (if (empty? data)
-        (do ) ;(do (into (sorted-map) custvector) )
-        (do ; (println (first data))
+        (do ) 
+        (do 
             (def custlist (str/split (first data) #"\|"))
             (def custid (parse-int (get custlist 0)))
             (def custvector (conj custvector {custid [ (get custlist 1) (get custlist 2) (get custlist 3) ] } ))
@@ -54,8 +54,8 @@
 
     ([data]
     (if (empty? data)
-        (do ) ; (do (into (sorted-map) prodvector) )
-        (do ; (println (first data))
+        (do ) 
+        (do 
             (def prodlist (str/split (first data) #"\|"))
             (def prodid (parse-int (get prodlist 0)) )
             (def unitcost (parse-float (get prodlist 2)) )
@@ -84,13 +84,13 @@
 
     ([data]
     (if (empty? data)
-        (do ) ; (do (into (sorted-map) salesvector) )
-        (do ; (println (first data))
+        (do ) 
+        (do 
             (def saleslist (str/split (first data) #"\|"))
             (def salesid (parse-int (get saleslist 0)) )
             (def itemcount (parse-int (get saleslist 3)) )
-            (def tempcustname (get custvector (parse-int (get saleslist 1)))) ; (println (get tempcustname 0))
-            (def tempitemname (get prodvector (parse-int (get saleslist 2)))) ; (println (get tempitemname 0))
+            (def tempcustname (get custvector (parse-int (get saleslist 1)))) 
+            (def tempitemname (get prodvector (parse-int (get saleslist 2)))) 
             (def salesvector (conj salesvector {salesid [(get tempcustname 0) (get tempitemname 0) itemcount ]} ))
             (recur (rest data))
         )
@@ -104,7 +104,7 @@
     (println "SalesID   Name      ProductName    ItemCount") 
     (map (fn [arg] 
         (def salesdata (get salesvector arg))
-        (println arg"   " (get salesdata 0)"    "(get salesdata 1)"     "(get salesdata 2)   )
+        (println "  "arg"   " (get salesdata 0)"    "(get salesdata 1)"     "(get salesdata 2)   )
     )  
     keyss) 
 
@@ -116,8 +116,8 @@
 
     ([data]
     (if (empty? data)
-        (do ) ; (do (into (sorted-map) salescalcvector) )
-        (do ; (println (first data))
+        (do ) 
+        (do 
             (def salescalclist (str/split (first data) #"\|"))
             (def salesid (parse-int (get salescalclist 0)) )
             (def custid (parse-int (get salescalclist 1)) )
@@ -133,7 +133,6 @@
 (defn logicfour
     [name]
     (def saleskeys  (listtovector (keys (splitsalesdata))   ) )
-   ; (println "SALESKEYS"saleskeys)
 
     (def salesidbyname 
       (filter (fn [x] 
@@ -166,7 +165,7 @@
 
     (def filteredprodid (reduce + (listtovector (prodidbysalesid filteredsalesid) ) )  )
 
-    (println name": "filteredprodid)
+    (println name": $"filteredprodid)
 
 )
 
@@ -184,14 +183,13 @@
       )) 
       productkeys) )
 
-    (def filteredprodid (listtovector prodidbyitem)) ; for shoes: 1
+    (def filteredprodid (listtovector prodidbyitem)) 
     (def salescalckeys  (listtovector (keys (splitsalescalcdata))   ) )
-    ;(println "salescalckeys"salescalckeys)
-
+    
     (def getsalesidbyprodid 
         (filter (fn [x] 
-            (def salescalcdata (get salescalcvector x)) ; salescalcvector's list: [1 1 3] [2 2 3] [2 1 1] [3 3 4]
-            ; (println "SALESCALCDATA"salescalcdata)
+            (def salescalcdata (get salescalcvector x)) 
+            
             (def prodid (get salescalcdata 1) )
             
             (if (= prodid (get filteredprodid 0))
@@ -204,11 +202,11 @@
 
     (defn itemcountbyprodid 
         [salesid]
-        ;(println "salesid"salesid)
+        
         (map (fn [arg] 
-        ;(println "arg"arg)
+        
         (def salesdata (get salescalcvector arg))
-        ;(println "salesdata"salesdata)
+       
         (def itemcount (get salesdata 2))
 
         itemcount
@@ -218,7 +216,7 @@
         )
     )
 
-    (def totalitems (reduce + (listtovector (itemcountbyprodid filteredsalesid) ) )  ) ; filteredsalesid
+    (def totalitems (reduce + (listtovector (itemcountbyprodid filteredsalesid) ) )  ) 
 
     (println item": " totalitems)
 
@@ -234,8 +232,8 @@
 
 (defn printmenu
   []
-    (println "*** Sales Menu ***")
-    (println "------------------")
+    (println "\n********* Sales Menu **********")
+    (println "-------------------------------")
     (println "1. Display Customer Table")
     (println "2. Display Product Table")
     (println "3. Display Sales Table")
@@ -250,9 +248,9 @@
       (printmenu)
       (let [readinput (parse-int (read-line))]
             (cond 
-                 (= readinput 1) (do (splitcustdata) (println "CUSTOMER TABLE")  (listtovector (remove nil?(displaycustdata) ))    (recur) ) 
-                 (= readinput 2) (do (splitproddata) (println "PRODUCT TABLE") (listtovector (remove nil?(displayproddata) )) (recur) )
-                 (= readinput 3) (do (splitsalesdata) (println "SALES TABLE") (listtovector (remove nil?(displaysalesdata) )) (recur) )
+                 (= readinput 1) (do (splitcustdata) (println "********************* CUSTOMER TABLE *********************")  (listtovector (remove nil?(displaycustdata) ))    (recur) ) 
+                 (= readinput 2) (do (splitproddata) (println "*********** PRODUCT TABLE ***********") (listtovector (remove nil?(displayproddata) )) (recur) )
+                 (= readinput 3) (do (splitsalesdata) (println "***************** SALES TABLE ****************") (listtovector (remove nil?(displaysalesdata) )) (recur) )
                  (= readinput 4) (do (println "Enter customer name:") (def cname (read-line)) (logicfour cname)  (recur) )
                  (= readinput 5) (do (println "Enter product name:") (def prodname (read-line)) (logicfive prodname) (recur) )
                  (= readinput 6) (do (println "Good Bye") )
