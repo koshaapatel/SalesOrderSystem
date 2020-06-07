@@ -48,7 +48,6 @@
 
 ) 
 
-
 (defn splitproddata
     ([]
     (do (into (sorted-map) prodvector) ))   
@@ -64,6 +63,18 @@
             (recur (rest data))
         )
     ))
+
+)
+
+(defn displayproddata
+    []
+    (def keyss (listtovector (keys (splitproddata) )) )
+    (println "ProdID    ItemDescription    UnitCost") 
+    (map (fn [arg] 
+        (def proddata (get prodvector arg))
+        (println arg"   " (get proddata 0)"    "(get proddata 1)   )
+    )  
+    keyss) 
 
 )
 
@@ -84,6 +95,18 @@
             (recur (rest data))
         )
     ))
+
+)
+
+(defn displaysalesdata
+    []
+    (def keyss (listtovector (keys (splitsalesdata) )) )
+    (println "SalesID   Name      ProductName    ItemCount") 
+    (map (fn [arg] 
+        (def salesdata (get salesvector arg))
+        (println arg"   " (get salesdata 0)"    "(get salesdata 1)"     "(get salesdata 2)   )
+    )  
+    keyss) 
 
 )
 
@@ -234,11 +257,10 @@
       (printmenu)
       (let [readinput (parse-int (read-line))]
             (cond 
-                 ; (= readinput 1) (do (splitcustdata) (println "CUSTOMER TABLE")   (def result (listtovector (remove nil?(displaycustdata) ))) (println result)    (recur) )
                  ; (= readinput 1) (do (splitcustdata) (println "CUSTOMER TABLE")   (def result (listtovector (remove nil?(displaycustdata) )))     (recur) )
-                 (= readinput 1) (do (splitcustdata) (println "CUSTOMER TABLE")  (listtovector (remove nil?(displaycustdata) ))    (recur) )
-                 (= readinput 2) (do (println "PRODUCT TABLE") (println (splitproddata)) (recur) )
-                 (= readinput 3) (do (println "SALES TABLE") (println (splitsalesdata)) (recur) )
+                 (= readinput 1) (do (splitcustdata) (println "CUSTOMER TABLE")  (listtovector (remove nil?(displaycustdata) ))    (recur) ) ; this and above line both works
+                 (= readinput 2) (do (splitproddata) (println "PRODUCT TABLE") (listtovector (remove nil?(displayproddata) )) (recur) )
+                 (= readinput 3) (do (splitsalesdata) (println "SALES TABLE") (listtovector (remove nil?(displaysalesdata) )) (recur) )
                  (= readinput 4) (do (println "Enter customer name:") (def cname (read-line)) (logicfour cname)  (recur) )
                  (= readinput 5) (do (println "Enter product name:") (def prodname (read-line)) (logicfive prodname) (recur) )
                  (= readinput 6) (do (println "Good Bye") )
